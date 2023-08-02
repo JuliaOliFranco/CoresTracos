@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 
 public class Usuarios extends JDialog {
 
@@ -73,7 +74,7 @@ public class Usuarios extends JDialog {
 	public Usuarios() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/img/users.png")));
 		setTitle("Usuarios");
-		setBounds(100, 100, 355, 300);
+		setBounds(100, 100, 435, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -87,17 +88,17 @@ public class Usuarios extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		scrollPaneUsers.setVisible(false);
-		scrollPaneUsers.setBounds(66, 101, 177, 62);
+		scrollPaneUsers.setBounds(66, 101, 177, 22);
 		contentPanel.add(scrollPaneUsers);
 		
 				listUsers = new JList();
+				scrollPaneUsers.setViewportView(listUsers);
 				listUsers.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						buscarUsuarioPelaLista();
 					}
 				});
-				scrollPaneUsers.setViewportView(listUsers);
 
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setBounds(10, 27, 46, 14);
@@ -147,6 +148,7 @@ public class Usuarios extends JDialog {
 		txtLogin.setDocument(new Validador(15));
 
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setContentAreaFilled(false);
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,7 +160,7 @@ public class Usuarios extends JDialog {
 		btnNewButton_1.setIcon(
 				new ImageIcon(Usuarios.class.getResource("/img/8665346_eraser_icon.png")));
 		btnNewButton_1.setToolTipText("Apagar");
-		btnNewButton_1.setBounds(31, 202, 48, 48);
+		btnNewButton_1.setBounds(47, 207, 48, 48);
 		contentPanel.add(btnNewButton_1);
 
 		txtSenha = new JPasswordField();
@@ -168,6 +170,7 @@ public class Usuarios extends JDialog {
 		txtSenha.setDocument(new Validador(8));
 
 		btnAdicionar = new JButton("");
+		btnAdicionar.setContentAreaFilled(false);
 		btnAdicionar.setEnabled(false);
 		btnAdicionar.setBorderPainted(false);
 		btnAdicionar.addActionListener(new ActionListener() {
@@ -178,10 +181,11 @@ public class Usuarios extends JDialog {
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setBorder(null);
 		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/3994437_add_create_new_plus_positive_icon.png")));
-		btnAdicionar.setBounds(176, 195, 55, 55);
+		btnAdicionar.setBounds(227, 207, 48, 48);
 		contentPanel.add(btnAdicionar);
 
 		btnEditar = new JButton("");
+		btnEditar.setContentAreaFilled(false);
 		btnEditar.setEnabled(false);
 		btnEditar.setBorderPainted(false);
 		btnEditar.setBorder(null);
@@ -193,10 +197,11 @@ public class Usuarios extends JDialog {
 		});
 		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9055458_bxs_edit_alt_icon.png")));
 		btnEditar.setToolTipText("Editar");
-		btnEditar.setBounds(252, 195, 55, 55);
+		btnEditar.setBounds(316, 207, 48, 48);
 		contentPanel.add(btnEditar);
 
 		btnExcluir = new JButton("");
+		btnExcluir.setContentAreaFilled(false);
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBorder(null);
 		btnExcluir.addActionListener(new ActionListener() {
@@ -208,13 +213,23 @@ public class Usuarios extends JDialog {
 		btnExcluir.setBorderPainted(false);
 		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/3669378_clear_ic_icon (1).png")));
 		btnExcluir.setToolTipText("Excluir");
-		btnExcluir.setBounds(102, 195, 55, 55);
+		btnExcluir.setBounds(138, 207, 48, 48);
 		contentPanel.add(btnExcluir);
 		
 		JComboBox cboPerfil = new JComboBox();
 		cboPerfil.setModel(new DefaultComboBoxModel(new String[] {"Admin", "User"}));
-		cboPerfil.setBounds(220, 23, 63, 22);
+		cboPerfil.setBounds(301, 155, 63, 22);
 		contentPanel.add(cboPerfil);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setOpaque(true);
+		lblNewLabel_3.setBackground(new Color(145, 23, 35));
+		lblNewLabel_3.setBounds(0, 202, 419, 59);
+		contentPanel.add(lblNewLabel_3);
+		
+		JCheckBox chckSenha = new JCheckBox("Alterar senha");
+		chckSenha.setBounds(25, 155, 97, 23);
+		contentPanel.add(chckSenha);
 	}//
 
 	/**

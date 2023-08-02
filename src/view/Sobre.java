@@ -1,13 +1,17 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.net.URI;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import java.awt.Color;
-import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Sobre extends JDialog {
 
@@ -71,6 +75,31 @@ public class Sobre extends JDialog {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_5.setBounds(247, 16, 112, 14);
 		getContentPane().add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Web service:");
+		lblNewLabel_6.setBounds(10, 106, 83, 14);
+		getContentPane().add(lblNewLabel_6);
+		
+		JLabel lblGit = new JLabel("https://github.com/JuliaOliFranco/CoresTracos");
+		lblGit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				link("https://github.com/JuliaOliFranco/CoresTracos");
+			}
+		});
+		lblGit.setForeground(new Color(0, 0, 128));
+		lblGit.setBounds(103, 106, 263, 14);
+		getContentPane().add(lblGit);
 
+	}
+	
+	private void link(String site) {
+		Desktop desktop = Desktop.getDesktop();
+		try {
+			URI uri = new URI(site);
+			desktop.browse(uri);
+		}catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
