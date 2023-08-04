@@ -387,21 +387,21 @@ public class Fornecedor extends JDialog {
 		txtVendedor.setDocument(new Validador(20));
 		
 		JLabel lblIE = new JLabel("Inscrição Estadual:");
-		lblIE.setBounds(358, 210, 103, 14);
+		lblIE.setBounds(444, 165, 103, 14);
 		contentPanel.add(lblIE);
 		
 		txtIE = new JTextField();
-		txtIE.setBounds(357, 224, 86, 20);
+		txtIE.setBounds(443, 179, 90, 20);
 		contentPanel.add(txtIE);
 		txtIE.setColumns(10);
 		txtIE.setDocument(new Validador(20));
 		
 		JLabel lblSite = new JLabel("Site:");
-		lblSite.setBounds(449, 162, 46, 14);
+		lblSite.setBounds(358, 210, 48, 14);
 		contentPanel.add(lblSite);
 		
 		txtSite = new JTextField();
-		txtSite.setBounds(449, 177, 86, 20);
+		txtSite.setBounds(358, 225, 175, 20);
 		contentPanel.add(txtSite);
 		txtSite.setColumns(10);
 		txtSite.setDocument(new Validador(50));

@@ -315,6 +315,8 @@ public class Produtos extends JDialog {
 		}
 		{
 			btnExcluir = new JButton("");
+			btnExcluir.setContentAreaFilled(false);
+			btnExcluir.setBorderPainted(false);
 			btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnExcluir.setEnabled(false);
 			btnExcluir.setToolTipText("Excluir");
@@ -329,6 +331,8 @@ public class Produtos extends JDialog {
 		}
 		{
 			btnLimpar = new JButton("");
+			btnLimpar.setContentAreaFilled(false);
+			btnLimpar.setBorderPainted(false);
 			btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnLimpar.setIcon(new ImageIcon(Produtos.class.getResource("/img/8665346_eraser_icon.png")));
 			btnLimpar.setToolTipText("Limpar");
@@ -342,6 +346,8 @@ public class Produtos extends JDialog {
 		}
 		{
 			btnAdicionar = new JButton("");
+			btnAdicionar.setBorderPainted(false);
+			btnAdicionar.setContentAreaFilled(false);
 			btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAdicionar.setToolTipText("Adicionar");
 			btnAdicionar.setIcon(new ImageIcon(Produtos.class.getResource("/img/3994437_add_create_new_plus_positive_icon.png")));
@@ -355,6 +361,8 @@ public class Produtos extends JDialog {
 		}
 		{
 			btnEditar = new JButton("");
+			btnEditar.setBorderPainted(false);
+			btnEditar.setContentAreaFilled(false);
 			btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditar.setEnabled(false);
 			btnEditar.setToolTipText("Editar");
@@ -376,7 +384,7 @@ public class Produtos extends JDialog {
 		lblFoto = new JLabel("");
 		lblFoto.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		lblFoto.setForeground(SystemColor.textHighlight);
-		lblFoto.setIcon(new ImageIcon(Produtos.class.getResource("/img/186269_measure_mannequin_icon.png")));
+		lblFoto.setIcon(new ImageIcon(Produtos.class.getResource("/img/9110937_camera_create_icon.png")));
 		lblFoto.setBounds(495, 87, 256, 256);
 		contentPanel.add(lblFoto);
 
@@ -396,8 +404,8 @@ public class Produtos extends JDialog {
 		{
 			lblNewLabel = new JLabel("");
 			lblNewLabel.setOpaque(true);
-			lblNewLabel.setBackground(new Color(255, 128, 192));
-			lblNewLabel.setBounds(0, 382, 825, 69);
+			lblNewLabel.setBackground(new Color(130, 0, 33));
+			lblNewLabel.setBounds(0, 382, 761, 69);
 			contentPanel.add(lblNewLabel);
 		}
 		{
@@ -441,7 +449,7 @@ public class Produtos extends JDialog {
 		txtLote.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(Produtos.class.getResource("/img/1173389_button_buttons_sewing_tailor icon_icon.png")));
+		lblNewLabel_5.setIcon(new ImageIcon(Produtos.class.getResource("/img/9054229_bx_barcode_icon.png")));
 		lblNewLabel_5.setBounds(30, 11, 48, 46);
 		contentPanel.add(lblNewLabel_5);
 		
@@ -581,23 +589,32 @@ public class Produtos extends JDialog {
 
 			// lógica pricipal
 			// CRUD Creat
-			String create = "insert into produtos (nomeprodutos,barcode,descricao,foto,estoque,estoquemin,valor,numeromedida,localarmazenagem,idprodutor) value (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			String create = "insert into produtos (codigo,barcode,produto,lote,descricao,foto,fabricante,estoque,estoquemin,unidade,localarm,custo,lucro,idfor) value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 			// tratamento com exceções
 			try {
 				// abrir conexão
 				con = dao.conectar();
 				// preparar a execução da query(instrução sql - CRUD Create)
 				pst = con.prepareStatement(create);
-				pst.setString(1, txtProduto.getText());
+				pst.setString(1, txtCodigo.getText());
 				pst.setString(2, txtBarcode.getText());
-				pst.setString(3, txtDescricao.getText());
-				pst.setBlob(4, fis, tamanho);
-				pst.setString(5, txtEstoque.getText());
-				pst.setString(6, txtEstoqueMin.getText());
-				pst.setString(7, txtCusto.getText());
-				pst.setString(8, cboUN.getSelectedItem().toString());
-				pst.setString(9, txtLocal.getText());
-				pst.setString(10, txtIDFornecedor.getText());
+				pst.setString(3, txtProduto.getText());
+				pst.setString(4, txtLote.getText());
+				pst.setString(5, txtDescricao.getText());
+				pst.setBlob(6, fis, tamanho);
+				pst.setString(7, txtFabricante.getText());
+				pst.setString(8, txtEstoque.getText());
+				pst.setString(9, txtEstoqueMin.getText());
+				pst.setString(10, cboUN.getSelectedItem().toString());
+				pst.setString(11, txtLocal.getText());
+				pst.setString(12, txtCusto.getText());
+				pst.setString(13, txtLucro.getText());
+				pst.setString(14, txtIDFornecedor.getText());
+				
+				//obter a data de componente JDate chooser e formatar para o banco de dados MySQL
+				SimpleDateFormat formatador = new SimpleDateFormat("yyyyMMdd");
+				String dataFormatada = formatador.format(dateValidade.getDate());
+				pst.setString(4, dataFormatada);
 
 				// executar a query(instruição sql (CRUD - Creat))
 				pst.executeUpdate();
@@ -605,6 +622,7 @@ public class Produtos extends JDialog {
 				JOptionPane.showMessageDialog(null, "Produto adicionado");
 				limparCampos();
 				// fechar a conexão
+				con.close();
 			} catch (Exception e) {
 				System.out.print(e);
 			}
@@ -620,7 +638,7 @@ public class Produtos extends JDialog {
 				JOptionPane.YES_NO_OPTION);
 		if (confirma == JOptionPane.YES_NO_OPTION) {
 			// CRUD - Delete
-			String delete = "delete from produtos where nomeprodutos=?";
+			String delete = "delete from produtos where produto=?";
 			// tratamento de exceções
 			try {
 				// abrir a conexão
@@ -669,7 +687,7 @@ public class Produtos extends JDialog {
 
 			// Lógica principal
 			// CRUD - Update
-			String update = "update produtos set nomeprodutos=?, descricao=?, estoque=?, estoquemin=?, valor=?, localarmazenagem=? where idproduto=?";
+			String update = "update produtos set produto=?, descricao=?, estoque=?, estoquemin=?, valor=?, localarmazenagem=? where idproduto=?";
 			// tratamentos de exceçoes
 			try {
 				// como a conexão
@@ -727,8 +745,8 @@ public class Produtos extends JDialog {
 		// setar o model (vetor na lista)
 		listProdutos.setModel(modelo);
 		// Query (instrução sql)
-		String readLista = "select* from produtos where nomeprodutos like '" + txtProduto.getText() + "%'"
-				+ "order by nomeprodutos";
+		String readLista = "select* from produtos where produto like '" + txtProduto.getText() + "%'"
+				+ "order by produto";
 		try {
 			// abri conexão
 			con = dao.conectar();
@@ -743,7 +761,7 @@ public class Produtos extends JDialog {
 				// mostrar a lista
 				scrollPaneProdutos.setVisible(true);
 				// adicionar os usuarios no vetor -> lista
-				modelo.addElement(rs.getString(2));
+				modelo.addElement(rs.getString(3));
 				// esconder a lista se nenhuma letra for digitada
 				if (txtProduto.getText().isEmpty()) {
 					scrollPaneProdutos.setVisible(false);
@@ -762,8 +780,8 @@ public class Produtos extends JDialog {
 		if (linha >= 0) {
 			// Query (instrução sql)
 			// limit (0,1) -> seleciona o indice 0 e 1 usuário da lista
-			String readListaprodutos = "select * from produtos where nomeprodutos like '" + txtProduto.getText() + "%'"
-					+ "order by nomeprodutos";
+			String readListaprodutos = "select * from produtos where produto like '" + txtProduto.getText() + "%'"
+					+ "order by produto";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readListaprodutos);
@@ -773,16 +791,20 @@ public class Produtos extends JDialog {
 					scrollPaneProdutos.setVisible(false);
 					// setar campos
 					txtCodigo.setText(rs.getString(1));
-					txtProduto.setText(rs.getString(2));
-					txtCusto.setText(rs.getString(3)); 
-					txtDescricao.setText(rs.getString(4));
-					Blob blob = (Blob) rs.getBlob(5);
-					txtEstoque.setText(rs.getString(6));
-					txtEstoqueMin.setText(rs.getString(7));
-					txtCusto.setText(rs.getString(8));
-					cboUN.setSelectedItem(rs.getString(9));
-					txtLocal.setText(rs.getString(10));
-					txtIDFornecedor.setText(rs.getString(11));
+					txtBarcode.setText(rs.getString(2));
+					txtProduto.setText(rs.getString(3));
+					txtLote.setText(rs.getString(4)); 
+					txtDescricao.setText(rs.getString(5));
+					Blob blob = (Blob) rs.getBlob(6);
+					txtFabricante.setText(rs.getString(7));
+					
+					txtEstoque.setText(rs.getString(10));
+					txtEstoqueMin.setText(rs.getString(11));
+					cboUN.setSelectedItem(rs.getString(12));
+					txtLocal.setText(rs.getString(13));
+					txtCusto.setText(rs.getString(14));
+					txtLucro.setText(rs.getString(15));
+					txtIDFornecedor.setText(rs.getString(16));
 					
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
@@ -854,4 +876,5 @@ public class Produtos extends JDialog {
 			System.out.println(e);
 		}
 	}
+	
 }
