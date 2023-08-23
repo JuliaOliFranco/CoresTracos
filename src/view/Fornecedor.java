@@ -90,7 +90,7 @@ public class Fornecedor extends JDialog {
 	public Fornecedor() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Fornecedor.class.getResource("/img/309041_users_group_people_icon (1).png")));
 		setTitle("Fornecedor");
-		setBounds(100, 100, 570, 400);
+		setBounds(100, 100, 576, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -363,7 +363,7 @@ public class Fornecedor extends JDialog {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setBackground(new Color(125, 0, 34));
-		lblNewLabel.setBounds(0, 292, 554, 69);
+		lblNewLabel.setBounds(0, 292, 560, 69);
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblFantasia = new JLabel("Nome Fantasia:");
@@ -387,7 +387,7 @@ public class Fornecedor extends JDialog {
 		txtVendedor.setDocument(new Validador(20));
 		
 		JLabel lblIE = new JLabel("Inscrição Estadual:");
-		lblIE.setBounds(444, 165, 103, 14);
+		lblIE.setBounds(444, 165, 110, 14);
 		contentPanel.add(lblIE);
 		
 		txtIE = new JTextField();
@@ -617,11 +617,15 @@ public class Fornecedor extends JDialog {
 				JOptionPane.showMessageDialog(null, "Fornecedor adicionado!");  
 				limparCampos();
 				//fechar a conexão
-			} catch (Exception e) {
-				System.out.print(e);
+			}  catch (java.sql.SQLIntegrityConstraintViolationException e1) {
+				JOptionPane.showMessageDialog(null, "Usuário não adicionado.\nEste CNPJ já está sendo utilizado.");
+				txtCNPJ.setText(null);
+				txtCNPJ.requestFocus();
+			} catch (Exception e2) {
+				System.out.println(e2);
 			}
-			}
-	}
+		}
+		}
 	/*
 	 * 
 	 */
@@ -694,7 +698,7 @@ public class Fornecedor extends JDialog {
 
 			// Lógica principal
 			// CRUD - Update
-			String update = "update fornecedor set razao=?, fantasia=?, fone=?, vendedor=?, email=?, site=?, cnpj=? , ie=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, uf=? where idfornecedor=?";
+			String update = "update fornecedor set razao=?, fantasia=?, fone=?, vendedor=?, email=?, site=?, cnpj=? , ie=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, uf=? where idfor=?";
 			// tratamentos de exceçoes
 			try {
 				// como a conexão
@@ -728,7 +732,8 @@ public class Fornecedor extends JDialog {
 
 			} catch (Exception e) {
 				
-				JOptionPane.showMessageDialog(null, "CNPJ já existente");
+				System.out.println(e);
+				
 			} 
 		}
 	}

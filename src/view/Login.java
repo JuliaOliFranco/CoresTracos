@@ -195,7 +195,7 @@ public class Login extends JFrame {
 			txtSenha.requestFocus();
 		} else {
 			//logica principal
-			String read = "select * from Usuarios where login=? and senha=md5(?)";
+			String read = "select * from usuarios where login=? and senha=md5(?)";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(read);

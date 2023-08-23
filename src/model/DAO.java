@@ -7,7 +7,7 @@ public class DAO {
 
 	// Variáveis para cnfigurar o banco de dados
 	private String driver = "com.mysql.cj.jdbc.Driver";
-	private String url = "jdbc:mysql://10.26.44.238:3306/dbsistema";
+	private String url = "jdbc:mysql://10.26.45.238:3306/dbsistema";
 	private String user = "root";
 	private String password = "123@senac";
 	// Criação dde um objeto para uso da classe Connection(JDBA)

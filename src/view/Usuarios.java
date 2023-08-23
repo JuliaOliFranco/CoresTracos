@@ -6,32 +6,32 @@ import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import model.DAO;
 import utils.Validador;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.border.BevelBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
 
 public class Usuarios extends JDialog {
 
@@ -48,12 +48,14 @@ public class Usuarios extends JDialog {
 	private Connection con;
 	// Instanciar objetos JDBC
 	DAO dao = new DAO();
-	private JPasswordField txtSenha;
 	private JButton btnAdicionar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JList listUsers;
 	private final JScrollPane scrollPaneUsers = new JScrollPane();
+	private JComboBox cboPerfil;
+	private JPasswordField txtSenha2;
+	private JCheckBox chckSenha;
 
 	/**
 	 * Launch the application.
@@ -88,7 +90,7 @@ public class Usuarios extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		scrollPaneUsers.setVisible(false);
-		scrollPaneUsers.setBounds(66, 101, 177, 22);
+		scrollPaneUsers.setBounds(67, 70, 177, 22);
 		contentPanel.add(scrollPaneUsers);
 		
 				listUsers = new JList();
@@ -105,11 +107,11 @@ public class Usuarios extends JDialog {
 		contentPanel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome:");
-		lblNewLabel_1.setBounds(10, 86, 46, 14);
+		lblNewLabel_1.setBounds(10, 55, 46, 14);
 		contentPanel.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Login:");
-		lblNewLabel_2.setBounds(10, 55, 46, 14);
+		lblNewLabel_2.setBounds(10, 83, 46, 14);
 		contentPanel.add(lblNewLabel_2);
 
 		JLabel lblSenha = new JLabel("Senha:");
@@ -135,13 +137,13 @@ public class Usuarios extends JDialog {
 				listarUsuarios();
 			}
 		});
-		txtNome.setBounds(66, 83, 177, 20);
+		txtNome.setBounds(66, 52, 177, 20);
 		contentPanel.add(txtNome);
 		txtNome.setColumns(10);
 		txtNome.setDocument(new Validador(50));
 
 		txtLogin = new JTextField();
-		txtLogin.setBounds(66, 52, 177, 20);
+		txtLogin.setBounds(66, 80, 177, 20);
 		contentPanel.add(txtLogin);
 		txtLogin.setColumns(10);
 		// uso do validador para limitar o número de caracteres
@@ -163,15 +165,8 @@ public class Usuarios extends JDialog {
 		btnNewButton_1.setBounds(47, 207, 48, 48);
 		contentPanel.add(btnNewButton_1);
 
-		txtSenha = new JPasswordField();
-		txtSenha.setBounds(66, 111, 177, 20);
-		contentPanel.add(txtSenha);
-		// uso do validador para limitar o número de caracteres
-		txtSenha.setDocument(new Validador(8));
-
 		btnAdicionar = new JButton("");
 		btnAdicionar.setContentAreaFilled(false);
-		btnAdicionar.setEnabled(false);
 		btnAdicionar.setBorderPainted(false);
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -192,7 +187,14 @@ public class Usuarios extends JDialog {
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editarContato();
+				// evento que vai verificar se o checkbox foi selecionado
+				if (chckSenha.isSelected()) {
+					editarUsuario();
+
+				} else {
+					editarUsuarioExcetosenha();
+
+				}
 			}
 		});
 		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9055458_bxs_edit_alt_icon.png")));
@@ -216,7 +218,7 @@ public class Usuarios extends JDialog {
 		btnExcluir.setBounds(138, 207, 48, 48);
 		contentPanel.add(btnExcluir);
 		
-		JComboBox cboPerfil = new JComboBox();
+		cboPerfil = new JComboBox();
 		cboPerfil.setModel(new DefaultComboBoxModel(new String[] {"Admin", "User"}));
 		cboPerfil.setBounds(301, 155, 63, 22);
 		contentPanel.add(cboPerfil);
@@ -227,9 +229,24 @@ public class Usuarios extends JDialog {
 		lblNewLabel_3.setBounds(0, 202, 419, 59);
 		contentPanel.add(lblNewLabel_3);
 		
-		JCheckBox chckSenha = new JCheckBox("Alterar senha");
-		chckSenha.setBounds(25, 155, 97, 23);
+		chckSenha = new JCheckBox("Alterar senha");
+		chckSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckSenha.isSelected()) {
+					txtSenha2.setText(null);
+					txtSenha2.requestFocus();
+					txtSenha2.setBackground(Color.yellow);
+				} else {
+					txtSenha2.setBackground(Color.white);
+				}
+			}
+		});
+		chckSenha.setBounds(25, 155, 127, 23);
 		contentPanel.add(chckSenha);
+		
+		txtSenha2 = new JPasswordField();
+		txtSenha2.setBounds(67, 111, 177, 20);
+		contentPanel.add(txtSenha2);
 	}//
 
 	/**
@@ -238,7 +255,7 @@ public class Usuarios extends JDialog {
 	private void limparcampos() {
 		txtID.setText(null);
 		txtNome.setText(null);
-		txtSenha.setText(null);
+		txtSenha2.setText(null);
 		txtLogin.setText(null);
 		btnAdicionar.setEnabled(false);
 		btnEditar.setEnabled(false);
@@ -258,14 +275,14 @@ public class Usuarios extends JDialog {
 		} else if (txtLogin.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o Login do Usuário");
 			txtLogin.requestFocus();
-		} else if (txtSenha.getText().isEmpty()) {
+		} else if (txtSenha2.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o Senha do Usuário");
-			txtSenha.requestFocus();
+			txtSenha2.requestFocus();
 		} else {
 
 			// lógica pricipal
 			// CRUD Creat
-			String create = "insert into Usuarios (nome,login,senha) values (?,?,md5(?))";
+			String create = "insert into usuarios (nome,login,senha,perfil) values (?,?,md5(?),?)";
 			// tratamento com exceções
 			try {
 				// abrir conexão
@@ -274,7 +291,9 @@ public class Usuarios extends JDialog {
 				pst = con.prepareStatement(create);
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
-				pst.setString(3, txtSenha.getText());
+				pst.setString(3, txtSenha2.getText());
+				pst.setString(4, cboPerfil.getSelectedItem().toString());
+				
 				// executar a query(instruição sql (CRUD - Creat))
 				pst.executeUpdate();
 				// Confirmar
@@ -290,7 +309,7 @@ public class Usuarios extends JDialog {
 
 	}
 
-	private void editarContato() {
+	private void editarUsuario() {
 		// System.out.println("teste do Método");
 
 		// Validação dos campos obrigátorios
@@ -300,14 +319,14 @@ public class Usuarios extends JDialog {
 		} else if (txtLogin.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digite o login do Usuário");
 			txtLogin.requestFocus();
-		} else if (txtSenha.getText().isEmpty()) {
+		} else if (txtSenha2.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digite a Senha do Usuário");
-			txtSenha.requestFocus();
+			txtSenha2.requestFocus();
 		} else {
 
 			// Lógica principal
 			// CRUD - Update
-			String update = "update Usuarios set nome=?, login=?, senha = md5(?) where id=?";
+			String update = "update usuarios set nome=?, login=?, senha = md5(?), perfil=? where id=?";
 			// tratamentos de exceçoes
 			try {
 
@@ -317,7 +336,52 @@ public class Usuarios extends JDialog {
 				pst = con.prepareStatement(update);
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
-				pst.setString(3, txtSenha.getText());
+				pst.setString(3, txtSenha2.getText());
+				pst.setString(4, cboPerfil.getSelectedItem().toString());
+				pst.setString(5, txtID.getText());
+				// executar a query
+				pst.executeUpdate();
+				// confirmar para o usuário
+				JOptionPane.showMessageDialog(null, "Dados do Usuário editados com sucesso");
+				// limpar campos
+				limparcampos();
+				// fechar conexão
+				con.close();
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+	
+	private void editarUsuarioExcetosenha() {
+		// System.out.println("teste do Método");
+
+		// Validação dos campos obrigátorios
+		if (txtNome.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Digite o nome");
+			txtNome.requestFocus();
+		} else if (txtLogin.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Digite o login do Usuário");
+			txtLogin.requestFocus();
+		} else if (txtSenha2.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Digite a Senha do Usuário");
+			txtSenha2.requestFocus();
+		} else {
+
+			// Lógica principal
+			// CRUD - Update
+			String update = "update usuarios set nome=?, login=?, perfil = ? where id=?";
+			// tratamentos de exceçoes
+			try {
+
+				// como a conexão
+				con = dao.conectar();
+				// preparar a query (instrução sql)
+				pst = con.prepareStatement(update);
+				pst.setString(1, txtNome.getText());
+				pst.setString(2, txtLogin.getText());
+				pst.setString(3, cboPerfil.getSelectedItem().toString());
 				pst.setString(4, txtID.getText());
 				// executar a query
 				pst.executeUpdate();
@@ -333,6 +397,7 @@ public class Usuarios extends JDialog {
 			}
 		}
 	}
+	
 	// Método usado para excluir um contato
 
 	private void excluirUsuarios() {
@@ -343,7 +408,7 @@ public class Usuarios extends JDialog {
 				JOptionPane.YES_NO_OPTION);
 		if (confirma == JOptionPane.YES_NO_OPTION) {
 			// CRUD - Delete
-			String delete = "delete from Usuarios where id=?";
+			String delete = "delete from usuarios where id=?";
 			// tratamento de exceções
 			try {
 				// abrir a conexão
@@ -374,7 +439,7 @@ public class Usuarios extends JDialog {
 		//setar o model (vetor na lista)
 		listUsers.setModel(modelo);
 		// Query (instrução sql)
-		String readLista = "select* from Usuarios where nome like '" + txtNome.getText() + "%'" + "order by nome";
+		String readLista = "select* from usuarios where nome like '" + txtNome.getText() + "%'" + "order by nome";
 		try {
 			// abri conexão
 			con = dao.conectar();
@@ -411,7 +476,7 @@ public class Usuarios extends JDialog {
 		if (linha >= 0) {
 			//query (instrução sql
 			//limit (0,1) -> seleciona o indice 0 e 1 usuario da lista
-			String readListaUsuario = "select * from Usuarios where nome like '" + txtNome.getText() + "%'"	+ "order by nome limit " + (linha) + " , 1";
+			String readListaUsuario = "select * from usuarios where nome like '" + txtNome.getText() + "%'"	+ "order by nome limit " + (linha) + " , 1";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readListaUsuario);
@@ -421,14 +486,25 @@ public class Usuarios extends JDialog {
 					txtID.setText(rs.getString(1));
 					txtNome.setText(rs.getString(2));
 					txtLogin.setText(rs.getString(3));
-					txtSenha.setText(rs.getString(4));
+					txtSenha2.setText(rs.getString(4));
+					cboPerfil.setSelectedItem(rs.getString(5));
+					
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					
+					
 				}
 			} catch (Exception e) {
 				System.out.println(e);
+				
+				btnAdicionar.setEnabled(true);
 			}
 		} else {
 			//se nao existir no banco um usuario da lista
 			scrollPaneUsers.setVisible(false);
+			
+	
+			
 		}
 	}
 }
