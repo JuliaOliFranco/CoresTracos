@@ -38,6 +38,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.Cursor;
+import java.awt.Font;
 
 public class Fornecedor extends JDialog {
 	
@@ -71,9 +72,7 @@ public class Fornecedor extends JDialog {
 	private JTextField txtSite;
 	private JTextField txtVendedor;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		try {
 			Fornecedor dialog = new Fornecedor();
@@ -84,13 +83,11 @@ public class Fornecedor extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public Fornecedor() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Fornecedor.class.getResource("/img/309041_users_group_people_icon (1).png")));
 		setTitle("Fornecedor");
-		setBounds(100, 100, 576, 400);
+		setBounds(100, 100, 800, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -104,7 +101,7 @@ public class Fornecedor extends JDialog {
 		
 		scrollPaneFornecedor = new JScrollPane();
 		scrollPaneFornecedor.setVisible(false);
-		scrollPaneFornecedor.setBounds(137, 50, 240, 30);
+		scrollPaneFornecedor.setBounds(192, 79, 257, 40);
 		contentPanel.add(scrollPaneFornecedor);
 		
 		listFornecedor = new JList();
@@ -127,7 +124,7 @@ public class Fornecedor extends JDialog {
 				Adicionar();
 			}
 		});
-		btnAdicionar.setBounds(62, 302, 48, 48);
+		btnAdicionar.setBounds(94, 502, 48, 48);
 		contentPanel.add(btnAdicionar);
 		
 		btnExcluir = new JButton("");
@@ -142,7 +139,7 @@ public class Fornecedor extends JDialog {
 				excluirFornecedor();
 			}
 		});
-		btnExcluir.setBounds(184, 302, 48, 48);
+		btnExcluir.setBounds(265, 502, 48, 48);
 		contentPanel.add(btnExcluir);
 		
 		btnEditar = new JButton("");
@@ -157,7 +154,7 @@ public class Fornecedor extends JDialog {
 				editarFornecedor();
 			}
 		});
-		btnEditar.setBounds(308, 302, 48, 48);
+		btnEditar.setBounds(452, 502, 48, 48);
 		contentPanel.add(btnEditar);
 		
 		btnLimpar = new JButton("");
@@ -171,60 +168,72 @@ public class Fornecedor extends JDialog {
 				limparCampos();
 			}
 		});
-		btnLimpar.setBounds(426, 302, 48, 48);
+		btnLimpar.setBounds(613, 502, 48, 48);
 		contentPanel.add(btnLimpar);
 		
 		JLabel lblID = new JLabel("ID:");
-		lblID.setBounds(27, 17, 37, 14);
+		lblID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblID.setBounds(69, 41, 37, 14);
 		contentPanel.add(lblID);
 		
 		JLabel lblRazao = new JLabel("Razão Social:");
-		lblRazao.setBounds(137, 17, 90, 14);
+		lblRazao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRazao.setBounds(192, 41, 90, 14);
 		contentPanel.add(lblRazao);
 		
 		JLabel lblFone = new JLabel("Telefone:");
-		lblFone.setBounds(27, 62, 62, 14);
+		lblFone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFone.setBounds(69, 114, 75, 14);
 		contentPanel.add(lblFone);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
-		lblEmail.setBounds(147, 62, 68, 14);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEmail.setBounds(260, 114, 68, 14);
 		contentPanel.add(lblEmail);
 		
 		JLabel lblCNPJ = new JLabel("CNPJ:");
-		lblCNPJ.setBounds(408, 17, 46, 14);
+		lblCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCNPJ.setBounds(532, 41, 46, 14);
 		contentPanel.add(lblCNPJ);
 		
 		JLabel lblCep = new JLabel("CEP:");
-		lblCep.setBounds(348, 62, 46, 14);
+		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCep.setBounds(532, 114, 46, 14);
 		contentPanel.add(lblCep);
 		
 		JLabel lblEndereco = new JLabel("Endereço:");
-		lblEndereco.setBounds(27, 114, 62, 14);
+		lblEndereco.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEndereco.setBounds(69, 194, 88, 16);
 		contentPanel.add(lblEndereco);
 		
 		JLabel lblNumero = new JLabel("Nº:");
-		lblNumero.setBounds(276, 114, 46, 14);
+		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNumero.setBounds(364, 202, 46, 14);
 		contentPanel.add(lblNumero);
 		
 		JLabel lblComplemento = new JLabel("Complemento:");
-		lblComplemento.setBounds(348, 114, 95, 14);
+		lblComplemento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblComplemento.setBounds(473, 201, 95, 14);
 		contentPanel.add(lblComplemento);
 		
 		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setBounds(27, 162, 62, 14);
+		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblBairro.setBounds(69, 275, 62, 14);
 		contentPanel.add(lblBairro);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setBounds(182, 162, 95, 14);
+		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCidade.setBounds(275, 281, 95, 14);
 		contentPanel.add(lblCidade);
 		
 		JLabel lblUF = new JLabel("UF:");
-		lblUF.setBounds(358, 162, 46, 14);
+		lblUF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblUF.setBounds(483, 281, 46, 14);
 		contentPanel.add(lblUF);
 		
 		cboUF = new JComboBox();
 		cboUF.setModel(new DefaultComboBoxModel(new String[] {"", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"}));
-		cboUF.setBounds(358, 176, 62, 23);
+		cboUF.setBounds(483, 295, 62, 29);
 		contentPanel.add(cboUF);
 		
 		txtID = new JTextField();
@@ -240,7 +249,7 @@ public class Fornecedor extends JDialog {
 			}
 		});
 		txtID.setEditable(false);
-		txtID.setBounds(27, 31, 52, 20);
+		txtID.setBounds(69, 55, 62, 29);
 		contentPanel.add(txtID);
 		txtID.setColumns(10);
 		
@@ -257,14 +266,14 @@ public class Fornecedor extends JDialog {
 				}
 			}
 		});
-		txtFone.setBounds(27, 76, 103, 18);
+		txtFone.setBounds(70, 129, 132, 29);
 		contentPanel.add(txtFone);
 		txtFone.setColumns(10);
 		txtFone.setDocument(new Validador(15));
 		
 		txtEmail = new JTextField();
 		txtEmail.setDocument(new Validador(50));
-		txtEmail.setBounds(147, 76, 179, 20);
+		txtEmail.setBounds(260, 129, 226, 29);
 		contentPanel.add(txtEmail);
 		txtEmail.setColumns(10);
 		txtEmail.setDocument(new Validador(30));
@@ -282,28 +291,28 @@ public class Fornecedor extends JDialog {
 				}
 			}
 		});
-		txtCep.setBounds(348, 75, 86, 20);
+		txtCep.setBounds(533, 128, 86, 29);
 		contentPanel.add(txtCep);
 		txtCep.setColumns(10);
 		
 		txtEndereco = new JTextField();
-		txtEndereco.setBounds(27, 129, 223, 20);
+		txtEndereco.setBounds(69, 211, 259, 29);
 		contentPanel.add(txtEndereco);
 		txtEndereco.setColumns(10);
 		
 		txtComplemento = new JTextField();
-		txtComplemento.setBounds(348, 127, 171, 20);
+		txtComplemento.setBounds(473, 217, 190, 29);
 		contentPanel.add(txtComplemento);
 		txtComplemento.setColumns(10);
 		
 		txtBairro = new JTextField();
-		txtBairro.setBounds(27, 176, 132, 20);
+		txtBairro.setBounds(69, 289, 171, 29);
 		contentPanel.add(txtBairro);
 		txtBairro.setColumns(10);
 		
 		txtCidade = new JTextField();
 		txtCidade.setColumns(10);
-		txtCidade.setBounds(182, 177, 134, 20);
+		txtCidade.setBounds(275, 296, 168, 29);
 		contentPanel.add(txtCidade);
 		
 		txtNumero = new JTextField();
@@ -311,7 +320,7 @@ public class Fornecedor extends JDialog {
 		txtNumero.addKeyListener(new KeyAdapter() {
 			
 		});
-		txtNumero.setBounds(276, 129, 49, 20);
+		txtNumero.setBounds(364, 217, 62, 29);
 		contentPanel.add(txtNumero);
 		txtNumero.setColumns(10);
 		
@@ -324,7 +333,7 @@ public class Fornecedor extends JDialog {
 				buscarCep();
 			}
 		});
-		btnBuscarCep.setBounds(460, 62, 40, 40);
+		btnBuscarCep.setBounds(645, 125, 40, 40);
 		contentPanel.add(btnBuscarCep);
 		
 		getRootPane().setDefaultButton(btnBuscarCep);
@@ -337,7 +346,7 @@ public class Fornecedor extends JDialog {
 				listarFornecedor();
 			}
 		});
-		txtRazao.setBounds(137, 32, 240, 19);
+		txtRazao.setBounds(192, 56, 257, 29);
 		contentPanel.add(txtRazao);
 		txtRazao.setColumns(10);
 		txtRazao.setDocument(new Validador(50));
@@ -355,7 +364,7 @@ public class Fornecedor extends JDialog {
 				}
 			}
 		});
-		txtCNPJ.setBounds(408, 32, 111, 20);
+		txtCNPJ.setBounds(532, 56, 182, 29);
 		contentPanel.add(txtCNPJ);
 		txtCNPJ.setColumns(10);
 		txtCNPJ.setDocument(new Validador(15));
@@ -363,52 +372,54 @@ public class Fornecedor extends JDialog {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setBackground(new Color(125, 0, 34));
-		lblNewLabel.setBounds(0, 292, 560, 69);
+		lblNewLabel.setBounds(0, 492, 784, 69);
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblFantasia = new JLabel("Nome Fantasia:");
-		lblFantasia.setBounds(27, 208, 90, 14);
+		lblFantasia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFantasia.setBounds(69, 361, 130, 14);
 		contentPanel.add(lblFantasia);
 		
 		txtFantasia = new JTextField();
-		txtFantasia.setBounds(27, 224, 132, 20);
+		txtFantasia.setBounds(69, 377, 168, 29);
 		contentPanel.add(txtFantasia);
 		txtFantasia.setColumns(10);
 		txtFantasia.setDocument(new Validador(50));
 		
 		JLabel lblVendedor = new JLabel("Vendedor:");
-		lblVendedor.setBounds(186, 207, 113, 14);
+		lblVendedor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblVendedor.setBounds(284, 361, 113, 14);
 		contentPanel.add(lblVendedor);
 		
 		txtVendedor = new JTextField();
-		txtVendedor.setBounds(183, 223, 143, 20);
+		txtVendedor.setBounds(281, 377, 143, 29);
 		contentPanel.add(txtVendedor);
 		txtVendedor.setColumns(10);
 		txtVendedor.setDocument(new Validador(20));
 		
 		JLabel lblIE = new JLabel("Inscrição Estadual:");
-		lblIE.setBounds(444, 165, 110, 14);
+		lblIE.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblIE.setBounds(576, 281, 132, 14);
 		contentPanel.add(lblIE);
 		
 		txtIE = new JTextField();
-		txtIE.setBounds(443, 179, 90, 20);
+		txtIE.setBounds(575, 295, 133, 29);
 		contentPanel.add(txtIE);
 		txtIE.setColumns(10);
 		txtIE.setDocument(new Validador(20));
 		
 		JLabel lblSite = new JLabel("Site:");
-		lblSite.setBounds(358, 210, 48, 14);
+		lblSite.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSite.setBounds(479, 361, 235, 14);
 		contentPanel.add(lblSite);
 		
 		txtSite = new JTextField();
-		txtSite.setBounds(358, 225, 175, 20);
+		txtSite.setBounds(479, 376, 235, 29);
 		contentPanel.add(txtSite);
 		txtSite.setColumns(10);
 		txtSite.setDocument(new Validador(50));
 	}
-	/**
-	 * buscarCep
-	 */
+	
 	private void buscarCep() {
 		String logradouro = "";
 		String tipoLogradouro = "";
@@ -450,25 +461,19 @@ public class Fornecedor extends JDialog {
 				System.out.println(e);
 		}
 	}
-	/**
-	 * Método usado para buscar usuário pela lista
-	 */
+	
 	private void buscarFornecedor() {
-		// System.out.println("teste");
-		// variável que captura o indice da linha da lista
+		
 		int linha = listFornecedor.getSelectedIndex();
 		if (linha >= 0) {
-			// Query (instrução sql)
-			// limit (0,1) -> seleciona o indice 0 e 1 usuário da lista
+			
 			String readListafornecedor =  "select * from fornecedor where razao like '" + txtRazao.getText() + "%'" + "order by razao";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readListafornecedor);
 				rs = pst.executeQuery();
 				if (rs.next()) {
-					// esconder a lista
 					scrollPaneFornecedor.setVisible(false);
-					// setar campos
 					txtID.setText(rs.getString(1));
 					txtRazao.setText(rs.getString(2));
 					txtFantasia.setText(rs.getString(3));
@@ -497,14 +502,11 @@ public class Fornecedor extends JDialog {
 				System.out.println(e);
 			}
 		} else {
-			// se não existir no banco um usuário da lista
 			scrollPaneFornecedor.setVisible(false);
 		}
 		
 	}
-	/**
-	 * METODO LIMPAR CAMPOS
-	 */
+	
 	private void limparCampos() {
 		txtBairro.setText(null);
 		txtCep.setText(null);
@@ -528,30 +530,19 @@ public class Fornecedor extends JDialog {
 		btnExcluir.setEnabled(false);
 
 	}
+	
 	private void listarFornecedor() {
-		// System.out.println("Teste");
-		// a linha abaixo cria um objeto usando como referência um vetor dinâmico, este
-		// obejto irá temporariamente armazenar os dados
+		
 		DefaultListModel<String> modelo = new DefaultListModel<>();
-		// setar o model (vetor na lista)
 		listFornecedor.setModel(modelo);
-		// Query (instrução sql)
 		String readLista = "select* from fornecedor where razao like '" + txtRazao.getText() + "%'" + "order by razao";
 		try {
-			// abri conexão
 			con = dao.conectar();
-
 			pst = con.prepareStatement(readLista);
-
 			rs = pst.executeQuery();
-
-			// uso do while para trazer os usuários enquanto exisitr
 			while (rs.next()) {
-				// mostrar a lista
 				scrollPaneFornecedor.setVisible(true);
-				// adicionar os usuarios no vetor -> lista
 				modelo.addElement(rs.getString(2));
-				// esconder a lista se nenhuma letra for digitada
 				if (txtRazao.getText().isEmpty()) {
 					scrollPaneFornecedor.setVisible(false);
 				}
@@ -561,9 +552,9 @@ public class Fornecedor extends JDialog {
 			System.out.println(e);
 		}
 	}
+	
 	private void Adicionar() {
-		// System.out.println("teste");
-		// Validação de campos obrigatóriios
+		
 		if  (txtRazao.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha a Razão Social do fornecedor");
 			txtRazao.requestFocus();
@@ -587,14 +578,10 @@ public class Fornecedor extends JDialog {
 			txtFantasia.requestFocus();
 		} else {
 			
-			// lógica pricipal
-			// CRUD Creat
 			String create = "insert into fornecedor (razao,fantasia,fone,vendedor,email,site,cnpj,ie,cep,endereco,numero,bairro,cidade,uf) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			// tratamento com exceções
+
 			try {
-				//abrir conexão 
 				con = dao.conectar();
-				//preparar a execução da query(instrução sql - CRUD Create)
 				pst = con.prepareStatement(create);
 				pst.setString(1, txtRazao.getText());
 				pst.setString(2, txtFantasia.getText());
@@ -611,12 +598,8 @@ public class Fornecedor extends JDialog {
 				pst.setString(13, txtCidade.getText());
 				pst.setString(14, cboUF.getSelectedItem().toString());
 				
-				//executar a query(instruição sql (CRUD - Creat))
-				pst.executeUpdate();
-				//Confirmar
 				JOptionPane.showMessageDialog(null, "Fornecedor adicionado!");  
 				limparCampos();
-				//fechar a conexão
 			}  catch (java.sql.SQLIntegrityConstraintViolationException e1) {
 				JOptionPane.showMessageDialog(null, "Usuário não adicionado.\nEste CNPJ já está sendo utilizado.");
 				txtCNPJ.setText(null);
@@ -625,34 +608,23 @@ public class Fornecedor extends JDialog {
 				System.out.println(e2);
 			}
 		}
-		}
-	/*
-	 * 
-	 */
+	}
+	
 	private void excluirFornecedor() {
-		// System.out.println("Teste do botão excluir");
-		// validação de exclusão - a variável confima captura a opção escolhida
-
+		
 		int confirma = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste fornecedor ?", "Atenção !",
 				JOptionPane.YES_NO_OPTION);
 		if (confirma == JOptionPane.YES_NO_OPTION) {
-			// CRUD - Delete
+			
 			String delete = "delete from fornecedor where razao=?";
-			// tratamento de exceções
 			try {
-				// abrir a conexão
 				con = dao.conectar();
-				// preparar a query (instrução sql)
 				pst = con.prepareStatement(delete);
-				// substituir a ? pelo id do contato
 				pst.setString(1, txtRazao.getText());
-				// executar a query
 				pst.executeUpdate();
-				// limpar Campos
 				limparCampos();
-				// exibir uma mensagem ao usuário
+				
 				JOptionPane.showMessageDialog(null, " Fornecedor excluido");
-				// fechar a conexão
 				con.close();
 			} catch (java.sql.SQLIntegrityConstraintViolationException e1) {
 				JOptionPane.showMessageDialog(null, "Fornecedor não excluido. \nEste Fornecedor ainda tem um produto cadastrado");
@@ -664,9 +636,7 @@ public class Fornecedor extends JDialog {
 	}
 	
 	private void editarFornecedor() {
-		// System.out.println("teste do Método");
-
-		// Validação dos campos obrigátorios
+		
 		if (txtEmail.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digite a Razão Social do fornecedor");
 			txtEmail.requestFocus();
@@ -696,14 +666,10 @@ public class Fornecedor extends JDialog {
 			txtVendedor.requestFocus();
 		} else {
 
-			// Lógica principal
-			// CRUD - Update
 			String update = "update fornecedor set razao=?, fantasia=?, fone=?, vendedor=?, email=?, site=?, cnpj=? , ie=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, uf=? where idfor=?";
-			// tratamentos de exceçoes
+			
 			try {
-				// como a conexão
 				con = dao.conectar();
-				// preparar a query (instrução sql)
 				pst = con.prepareStatement(update);
 				pst.setString(1, txtRazao.getText());
 				pst.setString(2, txtFantasia.getText());
@@ -721,17 +687,11 @@ public class Fornecedor extends JDialog {
 				pst.setString(14, txtCidade.getText());
 				pst.setString(15, cboUF.getSelectedItem().toString());
 				pst.setString(16, txtID.getText());
-				// executar a query
 				pst.executeUpdate();
-				// confirmar para o usuário
 				JOptionPane.showMessageDialog(null, "Dados do Fornecedor editado com sucesso");
-				// limpar campos
 				limparCampos();
-				// fechar conexão
 				con.close();
-
 			} catch (Exception e) {
-				
 				System.out.println(e);
 				
 			} 

@@ -15,14 +15,8 @@ import java.awt.event.MouseEvent;
 
 public class Sobre extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,9 +31,6 @@ public class Sobre extends JDialog {
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public Sobre() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sobre.class.getResource("/img/about.png")));
 		getContentPane().setBackground(new Color(255, 255, 255));
